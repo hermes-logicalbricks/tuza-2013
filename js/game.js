@@ -10,19 +10,22 @@ function PlayState() {
 
 
   this.setup = function() {
-    // Configurando todo
+    // Setting the browser options
+    jaws.log("Configuring browser options");
     jaws.context.mozImageSmoothingEnabled = false;
-    jaws.preventDefaultKeys(["w","a", "s","d","space","z","up","down","right","left"])
+    jaws.preventDefaultKeys(["w","a", "s","d","space","z","up","down","right","left"]);
 
-    // Iniciando el terreno
+    jaws.log("Loading map");
     terrain = new jaws.Sprite({x: 0, y: 0, image: 'images/level1.png'});
     raw_terrain = terrain.asCanvasContext();
     raw_pixeldata = raw_terrain.getImageData(0, 0, terrain.width, terrain.height).data;
 
+    jaws.log("Setting up viewport");
     viewport = new jaws.Viewport({max_x: terrain.width, max_y: terrain.height});
 
     start_pos = [30*8,240*8];
 
+    jaws.log("Creating player object");
     player = new jaws.Sprite({ x: 20, y: 20, anchor: "center_bottom" });
     player.animation = new jaws.Animation({ sprite_sheet: 'images/tuza_sprite2.png', frame_size: [40,52], frame_duration: 120, subsets: { saltar: [2,4] } });
 
@@ -55,7 +58,6 @@ function PlayState() {
 
     viewport.x = player.x - jaws.width / 2
     viewport.y = player.y - jaws.height + 100
-
   };
 
 
