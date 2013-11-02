@@ -1,4 +1,5 @@
 [
 {"type": "Penguin", "x": 1376, "y":1920, "text": "Test"},
+{"type": "Company", "x": 1976, "y":1820, "text": "Test"},
 {"type": "Ultrasound", "x": 1676, "y":1920, "text": "Test"}
 ]
