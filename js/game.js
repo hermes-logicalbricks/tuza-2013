@@ -184,7 +184,6 @@ function Ultrasound(options) {
   };
   this.update = function() {
     if (this.activated) {
-      jaws.log("Ultrasound activated", true);
       this.setImage(this.animation.next());
     }
   };
