@@ -1,3 +1,4 @@
 [
-{"type": "Penguin", "x": 1376, "y":1920, "text": "Test"}
+{"type": "Penguin", "x": 1376, "y":1920, "text": "Test"},
+{"type": "Ultrasound", "x": 1676, "y":1920, "text": "Test"}
 ]

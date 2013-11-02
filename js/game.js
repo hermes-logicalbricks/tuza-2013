@@ -170,10 +170,25 @@ function Penguin(options) {
 }
 Penguin.prototype = jaws.Sprite.prototype
 
+// Objects of the game
+function Ultrasound(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y })
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/ultrasound3x30x36.png', frame_size: [30,36], frame_duration: 120 })
+  this.setImage(this.animation.frames[0])
+  this.action = function() {
+    this.activated = (this.activated ? false : true)
+    this.setImage((this.activated ?  this.animation.next() : this.animation.frames[0]))
+  }
+}
+Ultrasound.prototype = jaws.Sprite.prototype
+
+
+
 jaws.onload = function() {
   jaws.assets.add("objects.json");
   jaws.assets.add("images/level1.png");
   jaws.assets.add("images/penguin2x17x24.png");
+  jaws.assets.add("images/ultrasound3x30x36.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.start(PlayState);
 };
