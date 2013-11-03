@@ -30,14 +30,14 @@ function PlayState() {
     jaws.preventDefaultKeys(["w","a", "s","d","space","z","up","down","right","left"]);
 
     jaws.log("Loading map", true);
-    terrain = new jaws.Sprite({x: 0, y: 0, image: 'images/level1.png'});
+    terrain = new jaws.Sprite({x: 0, y: 0, image: 'images/map.png'});
     raw_terrain = terrain.asCanvasContext();
     raw_pixeldata = raw_terrain.getImageData(0, 0, terrain.width, terrain.height).data;
 
     jaws.log("Setting up viewport", true);
     viewport = new jaws.Viewport({max_x: terrain.width, max_y: terrain.height});
 
-    start_pos = [30*8,240*8];
+    start_pos = [240,3150];
 
     jaws.log("Creating player object", true);
     player = new jaws.Sprite({ x: 20, y: 20, anchor: "center_bottom" });
@@ -67,7 +67,6 @@ function PlayState() {
     for(var i=0; i < target; i++) {
       obj.y += step
 
-      // if( terrainAt(obj.x, obj.y-1) || terrainAt(obj.x, obj.rect().y) ) {
       if( terrainAt(obj.x, obj.y) || terrainAt(obj.x, obj.rect().y) ) {
         obj.y -= step
         if(obj.vy > 0) { obj.jumping = false }
@@ -207,7 +206,7 @@ Company.prototype = jaws.Sprite.prototype
 
 jaws.onload = function() {
   jaws.assets.add("objects.json");
-  jaws.assets.add("images/level1.png");
+  jaws.assets.add("images/map.png");
   jaws.assets.add("images/penguin2x17x24.png");
   jaws.assets.add("images/ultrasound3x30x36.png");
   jaws.assets.add("images/company2x150x300.png");
