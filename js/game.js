@@ -163,7 +163,7 @@ function PlayState() {
 
 // Objects of the game
 function Penguin(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y })
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
   this.sprite_sheet = new jaws.SpriteSheet({image:"images/penguin2x17x24.png", frame_size: [17,24]})
   this.setImage(this.sprite_sheet.frames[0])
   this.action = function() {
@@ -173,9 +173,8 @@ function Penguin(options) {
 }
 Penguin.prototype = jaws.Sprite.prototype
 
-// Objects of the game
 function Ultrasound(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y })
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
   this.animation = new jaws.Animation({ sprite_sheet: 'images/ultrasound3x30x36.png', frame_size: [30,36], frame_duration: 120 })
   this.setImage(this.animation.frames[0])
   this.action = function() {
@@ -189,11 +188,9 @@ function Ultrasound(options) {
 }
 Ultrasound.prototype = jaws.Sprite.prototype
 
-
-// Objects of the game
 function Company(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y })
-  this.sprite_sheet = new jaws.SpriteSheet({image:"images/company2x150x300.png", frame_size: [150,300]})
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/company2x150x300.png", frame_size: [150,300], anchor: 'bottom_center'})
   this.setImage(this.sprite_sheet.frames[0])
   this.action = function() {
     this.activated = (this.activated ? false : true)
@@ -202,7 +199,17 @@ function Company(options) {
 }
 Company.prototype = jaws.Sprite.prototype
 
+function House(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/house2x250x200.png", frame_size: [250,200]})
+  this.setImage(this.sprite_sheet.frames[0])
+  this.action = function() {
+    this.activated = (this.activated ? false : true)
+    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]))
+  };
+}
 
+House.prototype = jaws.Sprite.prototype
 
 jaws.onload = function() {
   jaws.assets.add("objects.json");
@@ -210,6 +217,7 @@ jaws.onload = function() {
   jaws.assets.add("images/penguin2x17x24.png");
   jaws.assets.add("images/ultrasound3x30x36.png");
   jaws.assets.add("images/company2x150x300.png");
+  jaws.assets.add("images/house2x250x200.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.start(PlayState);
 };
