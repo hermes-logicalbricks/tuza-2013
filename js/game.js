@@ -137,7 +137,7 @@ function PlayState() {
     }
 
     game_objects.forEach( function(game_object, index) {
-      if(game_object.hasOwnProperty("update")) { game_object.update() }
+      if(game_object.hasOwnProperty("update")) { game_object.update(player) }
     });
 
     applyPhysics(player)
@@ -180,7 +180,7 @@ function Ultrasound(options) {
   this.action = function() {
     this.activated = (this.activated ? false : true)
   };
-  this.update = function() {
+  this.update = function(player) {
     if (this.activated) {
       this.setImage(this.animation.next());
     }
@@ -190,7 +190,7 @@ Ultrasound.prototype = jaws.Sprite.prototype
 
 function Company(options) {
   jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.sprite_sheet = new jaws.SpriteSheet({image:"images/company2x150x300.png", frame_size: [150,300], anchor: 'bottom_center'})
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/company2x150x300.png", frame_size: [150,300]})
   this.setImage(this.sprite_sheet.frames[0])
   this.action = function() {
     this.activated = (this.activated ? false : true)
@@ -208,8 +208,28 @@ function House(options) {
     this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]))
   };
 }
-
 House.prototype = jaws.Sprite.prototype
+
+function Tucito(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito2x22x32.png', frame_size: [22,32], frame_duration: 120 })
+  this.setImage(this.animation.frames[0])
+  this.action = function() {
+    this.activated = (this.activated ? false : true)
+  };
+
+  this.update = function(player) {
+    if (this.activated) {
+      this.flipped = player.flipped;
+      this.x = ( (player.flipped) ? (player.x + 40) : (player.x - 25));
+      this.y = player.y - 15;
+      this.setImage(this.animation.next());
+    }
+  };
+
+}
+Tucito.prototype = jaws.Sprite.prototype
+
 
 jaws.onload = function() {
   jaws.assets.add("objects.json");
@@ -218,6 +238,7 @@ jaws.onload = function() {
   jaws.assets.add("images/ultrasound3x30x36.png");
   jaws.assets.add("images/company2x150x300.png");
   jaws.assets.add("images/house2x250x200.png");
+  jaws.assets.add("images/tucito2x22x32.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.start(PlayState);
 };
