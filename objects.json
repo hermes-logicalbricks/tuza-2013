@@ -3,5 +3,6 @@
 {"type": "Company", "x": 976, "y": 3010, "text": "Test"},
 {"type": "Ultrasound", "x": 676, "y": 3142, "text": "Test"},
 {"type": "House", "x": 1276, "y": 3060, "text": "Test"},
+{"type": "Tuzo", "x": 1476, "y": 3135, "text": "Test"},
 {"type": "Tucito", "x": 1376, "y": 3142, "text": "Test"}
 ]

@@ -215,7 +215,8 @@ function Tucito(options) {
   this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito2x22x32.png', frame_size: [22,32], frame_duration: 120 })
   this.setImage(this.animation.frames[0])
   this.action = function() {
-    this.activated = (this.activated ? false : true)
+    //this.activated = (this.activated ? false : true)
+    this.activated = true
   };
 
   this.update = function(player) {
@@ -230,6 +231,26 @@ function Tucito(options) {
 }
 Tucito.prototype = jaws.Sprite.prototype
 
+function Tuzo(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/tuzo2x40x52.png', frame_size: [40,52], frame_duration: 120 })
+  this.setImage(this.animation.frames[0])
+  this.action = function() {
+    this.activated = true
+  };
+
+  this.update = function(player) {
+    if (this.activated) {
+      this.flipped = player.flipped;
+      this.x = ( (player.flipped) ? (player.x + 40) : (player.x - 25));
+      this.y = player.y - 25;
+      this.setImage(this.animation.next());
+    }
+  };
+
+}
+Tuzo.prototype = jaws.Sprite.prototype
+
 
 jaws.onload = function() {
   jaws.assets.add("objects.json");
@@ -239,6 +260,7 @@ jaws.onload = function() {
   jaws.assets.add("images/company2x150x300.png");
   jaws.assets.add("images/house2x250x200.png");
   jaws.assets.add("images/tucito2x22x32.png");
+  jaws.assets.add("images/tuzo2x40x52.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.start(PlayState);
 };
