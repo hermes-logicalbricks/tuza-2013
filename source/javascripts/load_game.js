@@ -8,6 +8,7 @@ jaws.onload = function() {
   jaws.assets.add("images/home2x250x200.png");
   jaws.assets.add("images/tucito2x22x32.png");
   jaws.assets.add("images/tuzo2x40x52.png");
+  jaws.assets.add("images/boy2x34x48.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.start(PlayState);
 };
