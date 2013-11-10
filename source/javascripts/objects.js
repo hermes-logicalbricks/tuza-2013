@@ -130,4 +130,17 @@ function Home(options) {
 }
 Home.prototype = jaws.Sprite.prototype;
 
+function Boy(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: "center_bottom" });
+  this.text = options.text;
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/boy2x34x48.png", frame_size: [34,48]});
+  this.setImage(this.sprite_sheet.frames[0]);
+  this.action = function() {
+    if (!this.activated){ this.text && message(this.text); }
+    this.activated = (this.activated ? false : true);
+    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]));
+  };
+}
+Boy.prototype = jaws.Sprite.prototype;
+
 
