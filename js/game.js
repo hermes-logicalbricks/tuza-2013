@@ -1,26 +1,24 @@
 function PlayState() {
   // Variables
   var viewport;
-  var raw_terrain, raw_pixeldata;
-  var terrain;
   var player;
   var frame;
 
-  var game_objects = new jaws.SpriteList()
+  var game_objects = new jaws.SpriteList();
 
   function loadGameObjects(json_file) {
-     jaws.log("Starting loading objects", true)
-     jaws.assets.get(json_file).forEach( function(item, index) {
-       jaws.log("Creating object..." + item.type + item, true)
-       var game_object = new window[item.type](item)
-       jaws.log("Created object...", true)
-       game_object.setAnchor("center")
-       game_object.rect()
-       game_objects.push(game_object)
-       jaws.log("Created " + game_object, true)
-     });
-     jaws.log("Created " + game_objects.length + " game objects", true)
-   }
+    jaws.log("Starting loading objects", true);
+      jaws.assets.get(json_file).forEach( function(item, index) {
+        jaws.log("Creating object..." + item.type + item, true);
+        var game_object = new window[item.type](item);
+        jaws.log("Created object...", true);
+        game_object.setAnchor("center");
+        game_object.rect();
+        game_objects.push(game_object);
+        jaws.log("Created " + game_object, true);
+      });
+    jaws.log("Created " + game_objects.length + " game objects", true);
+  }
 
   // Before game start
   this.setup = function() {
@@ -55,74 +53,14 @@ function PlayState() {
     jaws.log("Loaded objects", true);
   }
 
-  function applyPhysics(obj) {
-    var gravity = 0.5
-    var max_velocity_y = 10
-    if(obj.vy < max_velocity_y) { obj.vy += gravity  }
-  }
-
-  function move(obj) {
-    var target = Math.abs(obj.vy)
-    var step = parseInt(obj.vy / target)  // step will become -1 for vx < 0 and +0 for vx > 0
-    for(var i=0; i < target; i++) {
-      obj.y += step
-
-      if( terrainAt(obj.x, obj.y) || terrainAt(obj.x, obj.rect().y) ) {
-        obj.y -= step
-        if(obj.vy > 0) { obj.jumping = false }
-        obj.vy = 0
-      }
-    }
-
-    target = Math.abs(obj.vx)
-    step = parseInt(obj.vx / target)
-    for(var i=0; i < target; i++) {
-      obj.x += step
-
-      if(terrainInRect(obj.x, obj.y-obj.height, 1, obj.height)) {
-        if(!terrainInRect(obj.x, obj.y-obj.height-6, 1, obj.height)) {
-          obj.y -= 6
-        }
-        obj.x -= step
-      }
-    }
-  }
-
-  function terrainAt(x,y) {
-    try {
-      x = parseInt(x)
-      y = parseInt(y)
-      return raw_pixeldata[( (y-1) * terrain.width * 4) + (x*4) + 3]
-    }
-    catch(e) {
-      return false
-    }
-  }
-
-  function isOutsideCanvas(item) { return (item.x < 0 || item.y < 0 || item.x > jaws.width || item.y > jaws.height) }
-  function isCollidingWithTerrain(item) { return terrainAt(item.x, item.y) }
-
-  function terrainInRect(x,y,width,height) {
-    try {
-      for(var x2 = x+width; x < x2; x++) {
-        for(var y2 = y+height; y < y2; y++) {
-          if(terrainAt(x, y))  return true;
-        }
-      }
-      return false
-    }
-    catch(e) {
-      return false
-    }
-  }
 
   this.update = function() {
-    var frame = 0
+    var frame = 0;
     if(player.jumping)      { frame = 3 }
     else if(player.vx)      { frame = -1; player.setImage( player.move_anim.next() ) }
     if(frame >= 0)          { player.setImage( player.animation.frames[frame] ) }
 
-    player.vx = 0
+    player.vx = 0;
     if (jaws.pressed("left"))        { player.vx = -4; player.flipped = 1; }
     else if (jaws.pressed("right"))  { player.vx = +4; player.flipped = 0; }
     if (jaws.pressed("up"))  { if(!player.jumping && player.can_jump) { player.vy = -10; player.jumping = true; player.can_jump = false} }
@@ -140,143 +78,21 @@ function PlayState() {
       if(game_object.hasOwnProperty("update")) { game_object.update(player) }
     });
 
-    applyPhysics(player)
-    move(player)
+    applyPhysics(player);
+    move(player);
 
-    viewport.x = player.x - jaws.width / 2
-    viewport.y = player.y - jaws.height + 100
+    viewport.x = player.x - jaws.width / 2;
+    viewport.y = player.y - jaws.height + 100;
   };
 
 
   this.draw = function() {
-    jaws.clear()
+    jaws.clear();
 
-    viewport.apply( function() {
-      terrain.draw()
-      game_objects.draw()
-      player.draw()
-    });
+      viewport.apply( function() {
+        terrain.draw();
+        game_objects.draw();
+        player.draw();
+      });
   };
-
-
-};
-
-// Objects of the game
-function Penguin(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/penguin2x17x24.png', frame_size: [17,24], frame_duration: 120 })
-  this.setImage(this.animation.frames[0])
-  this.action = function() {
-    this.activated = (this.activated ? false : true)
-  };
-  this.update = function(player) {
-    if (this.activated) {
-      this.setImage(this.animation.next());
-    }
-  };
-}
-Penguin.prototype = jaws.Sprite.prototype
-
-function Ultrasound(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/ultrasound3x30x36.png', frame_size: [30,36], frame_duration: 120 })
-  this.setImage(this.animation.frames[0])
-  this.action = function() {
-    this.activated = (this.activated ? false : true)
-  };
-  this.update = function(player) {
-    if (this.activated) {
-      this.setImage(this.animation.next());
-    }
-  };
-}
-Ultrasound.prototype = jaws.Sprite.prototype
-
-function Company(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.sprite_sheet = new jaws.SpriteSheet({image:"images/company2x150x300.png", frame_size: [150,300]})
-  this.setImage(this.sprite_sheet.frames[0])
-  this.action = function() {
-    this.activated = (this.activated ? false : true)
-    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]))
-  };
-}
-Company.prototype = jaws.Sprite.prototype
-
-function House(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.sprite_sheet = new jaws.SpriteSheet({image:"images/house2x250x200.png", frame_size: [250,200]})
-  this.setImage(this.sprite_sheet.frames[0])
-  this.action = function() {
-    this.activated = (this.activated ? false : true)
-    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]))
-  };
-}
-House.prototype = jaws.Sprite.prototype
-
-function Tucito(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito2x22x32.png', frame_size: [22,32], frame_duration: 120 })
-  this.setImage(this.animation.frames[0])
-  this.action = function() {
-    //this.activated = (this.activated ? false : true)
-    this.activated = true
-  };
-
-  this.update = function(player) {
-    if (this.activated) {
-      this.flipped = player.flipped;
-      this.x = ( (player.flipped) ? (player.x + 40) : (player.x - 25));
-      this.y = player.y - 15;
-      this.setImage(this.animation.next());
-    }
-  };
-
-}
-Tucito.prototype = jaws.Sprite.prototype
-
-function Tuzo(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/tuzo2x40x52.png', frame_size: [40,52], frame_duration: 120 })
-  this.setImage(this.animation.frames[0])
-  this.action = function() {
-    this.activated = true
-  };
-
-  this.update = function(player) {
-    if (this.activated) {
-      this.flipped = player.flipped;
-      this.x = ( (player.flipped) ? (player.x + 40) : (player.x - 25));
-      this.y = player.y - 25;
-      this.setImage(this.animation.next());
-    }
-  };
-
-}
-Tuzo.prototype = jaws.Sprite.prototype
-
-function Home(options) {
-  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'bottom_center' })
-  this.sprite_sheet = new jaws.SpriteSheet({image:"images/home2x250x200.png", frame_size: [250,200]})
-  this.setImage(this.sprite_sheet.frames[0])
-  this.action = function() {
-    this.activated = (this.activated ? false : true)
-    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]))
-  };
-}
-Home.prototype = jaws.Sprite.prototype
-
-
-jaws.onload = function() {
-  jaws.assets.add("objects.json");
-  jaws.assets.add("images/map.png");
-  jaws.assets.add("images/penguin2x17x24.png");
-  jaws.assets.add("images/ultrasound3x30x36.png");
-  jaws.assets.add("images/company2x150x300.png");
-  jaws.assets.add("images/house2x250x200.png");
-  jaws.assets.add("images/home2x250x200.png");
-  jaws.assets.add("images/tucito2x22x32.png");
-  jaws.assets.add("images/tuzo2x40x52.png");
-  jaws.assets.add("images/tuza_sprite2.png");
-  jaws.start(PlayState);
 };
