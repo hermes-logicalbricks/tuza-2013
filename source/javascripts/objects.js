@@ -62,7 +62,7 @@ House.prototype = jaws.Sprite.prototype;
 function Tucito(options) {
   jaws.Sprite.call(this, { x: options.x, y: options.y, anchor:"center_bottom" });
   this.text = options.text;
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito2x22x32.png', frame_size: [22,32], frame_duration: 120 });
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito4x40x32.png', frame_size: [40,32], frame_duration: 120 });
   this.setImage(this.animation.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
