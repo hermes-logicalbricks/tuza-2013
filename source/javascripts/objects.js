@@ -63,6 +63,10 @@ function Tucito(options) {
   jaws.Sprite.call(this, { x: options.x, y: options.y, anchor:"center_bottom" });
   this.text = options.text;
   this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito4x40x32.png', frame_size: [40,32], frame_duration: 120 });
+  // Another animation
+  this.truckle = this.animation.slice(0,2);
+  this.walking = this.animation.slice(2,2);
+
   this.setImage(this.animation.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
@@ -81,7 +85,8 @@ function Tucito(options) {
       applyPhysics(this);
       move(this);
       this.y = player.y - 15;
-      this.setImage(this.animation.next());
+      if (player.walking_baby) { this.setImage(this.walking.next());}
+      else { this.setImage(this.truckle.next()); }
     }
   };
 

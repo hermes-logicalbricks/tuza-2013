@@ -1,6 +1,16 @@
-<div id="msg"></div>
-<div id="game">
-<canvas width="640" height="480"></canvas>
-</div>
-<div id="jaws-log"></div>
+.container
+  .padded
+    .row
+      %h1.zero.museo-slab La tremenda historia de la Tuza Caperuza...
+  %hr
+  %article.row
+    %section.one.padded.pull-left
+      .game-container
+        #game
+          %canvas{ width:"640", height:"480"}
+    %aside.two.right-one
+      %h1
+        #msg
+
+  #jaws-log
 
