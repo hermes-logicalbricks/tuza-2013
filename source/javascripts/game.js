@@ -35,7 +35,8 @@ function PlayState() {
     jaws.log("Setting up viewport", true);
     viewport = new jaws.Viewport({max_x: terrain.width, max_y: terrain.height});
 
-    start_pos = [240,3150];
+    //start_pos = [240,3150];
+    start_pos = [200,2400];
 
     jaws.log("Creating player object", true);
     player = new jaws.Sprite({ x: 20, y: 20, anchor: "center_bottom" });

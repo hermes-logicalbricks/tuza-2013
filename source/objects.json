@@ -1,10 +1,12 @@
 [
-{"type": "Penguin", "x": 376, "y": 3148, "text": "12 de Noviembre de 2011 llega un nuevo miembro a la familia... Pingüinín"},
-{"type": "Company", "x": 976, "y": 3010, "text": "21 de Enero de 2011 iniciamos la empresa LogicalBricks"},
-{"type": "Ultrasound", "x": 676, "y": 3142, "text": "10 de Septiembre de 2011, nos enteramos de la existencia de un frijolito acrobático..."},
-{"type": "House", "x": 1276, "y": 3060, "text": "10 de Febrero de 2012 llegamos a vivir a Prol. de Fiallo 1209."},
-{"type": "Home", "x": 1776, "y": 3060, "text": "Mayo 2013, llegamos a vivir a 2a Priv. de la Noria."},
-{"type": "Tuzo", "x": 1476, "y": 3135, "text": "10 de Noviembre de 2010 - Tuza conoce a un tuzo hermoso... ;)"},
-{"type": "Tucito", "x": 1376, "y": 3142, "text": "26 de Marzo de 2012 - Nace el único y hermoso Tucito..."},
-{"type": "Boy", "x": 476, "y": 3135, "text": "4 Noviembre 2012 - Conozco a Eliud gracias al apoyo de mi tuza..."}
+{"type": "ArrowLeft", "x": 5000, "y": 2537, "text": "Primero camina  hacia allá..."},
+{"type": "ArrowRight", "x": 210, "y": 2545, "text": "Ahora sí camina hasta el fondo..."},
+{"type": "Tuzo", "x": 500, "y": 3135, "text": "10 de Noviembre de 2010 - Tuza encuentra a un tuzo hermoso... ;)"},
+{"type": "Company", "x": 1200, "y": 3010, "text": "21 de Enero de 2011 iniciamos la empresa LogicalBricks"},
+{"type": "Penguin", "x": 4000, "y": 3148, "text": "12 de Noviembre de 2011 - 1 año de felicidad y llega Pingüinito"},
+{"type": "Ultrasound", "x": 2700, "y": 3142, "text": "10 de Septiembre de 2011, nos enteramos de la existencia de un frijolito acrobático..."},
+{"type": "House", "x": 3900, "y": 2460, "text": "10 de Febrero de 2012 llegamos a vivir a Prol. de Fiallo 1209."},
+{"type": "Tucito", "x": 2500, "y": 2544, "text": "26 de Marzo de 2012 - Nace el único y hermoso Tucito..."},
+{"type": "Home", "x": 4880, "y": 1876, "text": "Mayo 2013, llegamos a vivir a 2a Priv. de la Noria."},
+{"type": "Boy", "x": 5800, "y": 2528, "text": "4 Noviembre 2012 - Conozco a Eliud gracias al apoyo de mi tuza..."}
 ]

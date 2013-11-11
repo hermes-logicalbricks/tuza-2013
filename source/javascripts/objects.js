@@ -143,4 +143,28 @@ function Boy(options) {
 }
 Boy.prototype = jaws.Sprite.prototype;
 
+function ArrowRight(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: "center_bottom" });
+  this.text = options.text;
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/arrow-right1x41x30.png", frame_size: [41,30]});
+  this.setImage(this.sprite_sheet.frames[0]);
+  this.action = function() {
+    if (!this.activated){ this.text && message(this.text); }
+    this.activated = (this.activated ? false : true);
+  };
+}
+ArrowRight.prototype = jaws.Sprite.prototype;
+
+function ArrowLeft(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: "center_bottom" });
+  this.text = options.text;
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/arrow-left1x41x30.png", frame_size: [41,30]});
+  this.setImage(this.sprite_sheet.frames[0]);
+  this.action = function() {
+    if (!this.activated){ this.text && message(this.text); }
+    this.activated = (this.activated ? false : true);
+  };
+}
+ArrowLeft.prototype = jaws.Sprite.prototype;
+
 

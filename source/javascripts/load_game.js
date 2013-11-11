@@ -10,5 +10,7 @@ jaws.onload = function() {
   jaws.assets.add("images/tuzo2x40x52.png");
   jaws.assets.add("images/boy2x34x48.png");
   jaws.assets.add("images/tuza_sprite2.png");
+  jaws.assets.add("images/arrow-left1x41x30.png");
+  jaws.assets.add("images/arrow-right1x41x30.png");
   jaws.start(PlayState);
 };
