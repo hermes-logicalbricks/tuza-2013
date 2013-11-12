@@ -14,5 +14,6 @@ jaws.onload = function() {
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.assets.add("images/arrow-left1x41x30.png");
   jaws.assets.add("images/arrow-right1x41x30.png");
+  jaws.assets.add("images/end5x500x500.png");
   jaws.start(PlayState);
 };

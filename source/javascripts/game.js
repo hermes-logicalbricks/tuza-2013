@@ -35,8 +35,8 @@ function PlayState() {
     jaws.log("Setting up viewport", true);
     viewport = new jaws.Viewport({max_x: terrain.width, max_y: terrain.height});
 
-    //start_pos = [240,3150];
-    start_pos = [2500,2400];
+    start_pos = [240,3150];
+    //start_pos = [800,1200];
 
     jaws.log("Creating player object", true);
     player = new jaws.Sprite({ x: 20, y: 20, anchor: "center_bottom" });
@@ -74,7 +74,14 @@ function PlayState() {
     if(jaws.pressed("space")) {
       game_objects.forEach( function(game_object, index) {
         if(player.rect().collideRect(game_object.rect())) {
-          game_object.action && game_object.action();
+          if (game_object.type == "End") {
+            other_objects = game_objects.filter( function(item,index) { return ( item.type != game_object.type) })
+            if( other_objects.every( function(i) {return i.activated}) ) {
+              game_object.action && game_object.action();
+            } else { message('Debes activar a todos los elementos para activar el final...');}
+          } else {
+            game_object.action && game_object.action();
+          }
         }
       });
     }
@@ -87,7 +94,7 @@ function PlayState() {
     move(player);
 
     viewport.x = player.x - jaws.width / 2;
-    viewport.y = player.y - jaws.height + 100;
+    viewport.y = player.y - jaws.height + 80;
   };
 
 
