@@ -7,8 +7,10 @@ jaws.onload = function() {
   jaws.assets.add("images/house2x250x200.png");
   jaws.assets.add("images/home2x250x200.png");
   jaws.assets.add("images/tucito4x40x32.png");
+  jaws.assets.add("images/cake4x100x100.png");
   jaws.assets.add("images/tuzo2x40x52.png");
   jaws.assets.add("images/boy2x34x48.png");
+  jaws.assets.add("images/hospital2x225x138.png");
   jaws.assets.add("images/tuza_sprite2.png");
   jaws.assets.add("images/arrow-left1x41x30.png");
   jaws.assets.add("images/arrow-right1x41x30.png");

@@ -61,6 +61,10 @@ function PlayState() {
     else if(player.vx)      { frame = -1; player.setImage( player.move_anim.next() ) }
     if(frame >= 0)          { player.setImage( player.animation.frames[frame] ) }
 
+    if (!player.walking_baby && player.y < 2400) {
+      player.walking_baby = true;
+    }
+
     player.vx = 0;
     if (jaws.pressed("left"))        { player.vx = -4; player.flipped = 1; }
     else if (jaws.pressed("right"))  { player.vx = +4; player.flipped = 0; }

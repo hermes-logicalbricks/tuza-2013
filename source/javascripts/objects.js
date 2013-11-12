@@ -6,7 +6,7 @@ function Penguin(options) {
   this.setImage(this.animation.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.activated = true;
   };
   this.update = function(player) {
     if (this.activated) {
@@ -23,7 +23,7 @@ function Ultrasound(options) {
   this.setImage(this.animation.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.activated = true;
   };
   this.update = function(player) {
     if (this.activated) {
@@ -53,7 +53,7 @@ function House(options) {
   this.setImage(this.sprite_sheet.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.activated = true;
     this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]));
   };
 }
@@ -65,7 +65,7 @@ function Tucito(options) {
   this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito4x40x32.png', frame_size: [40,32], frame_duration: 120 });
   // Another animation
   this.truckle = this.animation.slice(0,2);
-  this.walking = this.animation.slice(2,2);
+  this.walking = this.animation.slice(2,4);
 
   this.setImage(this.animation.frames[0]);
   this.action = function() {
@@ -129,7 +129,7 @@ function Home(options) {
   this.setImage(this.sprite_sheet.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.activated = true;
     this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]));
   };
 }
@@ -142,7 +142,7 @@ function Boy(options) {
   this.setImage(this.sprite_sheet.frames[0]);
   this.action = function() {
     if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.activated = true;
     this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]));
   };
 }
@@ -154,8 +154,8 @@ function ArrowRight(options) {
   this.sprite_sheet = new jaws.SpriteSheet({image:"images/arrow-right1x41x30.png", frame_size: [41,30]});
   this.setImage(this.sprite_sheet.frames[0]);
   this.action = function() {
-    if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.text && message(this.text);
+    this.activated = true;
   };
 }
 ArrowRight.prototype = jaws.Sprite.prototype;
@@ -166,10 +166,43 @@ function ArrowLeft(options) {
   this.sprite_sheet = new jaws.SpriteSheet({image:"images/arrow-left1x41x30.png", frame_size: [41,30]});
   this.setImage(this.sprite_sheet.frames[0]);
   this.action = function() {
-    if (!this.activated){ this.text && message(this.text); }
-    this.activated = (this.activated ? false : true);
+    this.text && message(this.text);
+    this.activated = true;
   };
 }
 ArrowLeft.prototype = jaws.Sprite.prototype;
+
+function Cake(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor:"center_bottom" });
+  this.text = options.text;
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/cake4x100x100.png', frame_size: [100,100], frame_duration: 120 });
+  this.setImage(this.animation.frames[0]);
+  this.animation_fire = this.animation.slice(1,5);
+  this.action = function() {
+    if (!this.activated){ this.text && message(this.text); }
+    this.activated = true;
+  };
+
+  this.update = function(player) {
+    if (this.activated) {
+      this.setImage(this.animation_fire.next());
+    }
+  };
+
+}
+Cake.prototype = jaws.Sprite.prototype;
+
+function Hospital(options) {
+  jaws.Sprite.call(this, { x: options.x, y: options.y, anchor: 'center_bottom' });
+  this.text = options.text;
+  this.sprite_sheet = new jaws.SpriteSheet({image:"images/hospital2x225x138.png", frame_size: [225,138]});
+  this.setImage(this.sprite_sheet.frames[0]);
+  this.action = function() {
+    if (!this.activated){ this.text && message(this.text); }
+    this.activated = true;
+    this.setImage((this.activated ?  this.sprite_sheet.frames[1] : this.sprite_sheet.frames[0]));
+  };
+}
+Hospital.prototype = jaws.Sprite.prototype;
 
 
