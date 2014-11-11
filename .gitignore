@@ -1,2 +1,4 @@
 images/.directory
+build/
 *.sw*
+.directory
