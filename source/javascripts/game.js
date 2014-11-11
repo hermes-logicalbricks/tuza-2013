@@ -7,23 +7,23 @@ function PlayState() {
   var game_objects = new jaws.SpriteList();
 
   function loadGameObjects(json_file) {
-    jaws.log("Starting loading objects", true);
-      jaws.assets.get(json_file).forEach( function(item, index) {
-        jaws.log("Creating object..." + item.type + item, true);
-        var game_object = new window[item.type](item);
-        jaws.log("Created object...", true);
-        game_object.setAnchor("center");
-        game_object.rect();
-        game_objects.push(game_object);
-        jaws.log("Created " + game_object, true);
-      });
-    jaws.log("Created " + game_objects.length + " game objects", true);
+    jaws.log("Cargando objetos", true);
+    jaws.assets.get(json_file).forEach( function(item, index) {
+      jaws.log("Creando objeto..." + item.type + item, true);
+      var game_object = new window[item.type](item);
+      jaws.log("Objeto creado...", true);
+      game_object.setAnchor("center");
+      game_object.rect();
+      game_objects.push(game_object);
+      jaws.log("Creado " + game_object, true);
+    });
+    jaws.log("" + game_objects.length + " Objetos del juego creados", true);
   }
 
   // Before game start
   this.setup = function() {
     // Setting the browser options
-    jaws.log("Configuring browser options",true);
+    jaws.log("Configurando las opciones del navegador",true);
     jaws.context.mozImageSmoothingEnabled = false;
     jaws.preventDefaultKeys(["w","a", "s","d","space","z","up","down","right","left"]);
 
@@ -32,13 +32,13 @@ function PlayState() {
     raw_terrain = terrain.asCanvasContext();
     raw_pixeldata = raw_terrain.getImageData(0, 0, terrain.width, terrain.height).data;
 
-    jaws.log("Setting up viewport", true);
+    jaws.log("Configurando el puerto de visualización", true);
     viewport = new jaws.Viewport({max_x: terrain.width, max_y: terrain.height});
 
-    start_pos = [240,3150];
+    start_pos = [240,2500];
     //start_pos = [800,1200];
 
-    jaws.log("Creating player object", true);
+    jaws.log("Creando al objeto jugador", true);
     player = new jaws.Sprite({ x: 20, y: 20, anchor: "center_bottom" });
     player.animation = new jaws.Animation({ sprite_sheet: 'images/tuza_sprite2.png', frame_size: [40,52], frame_duration: 120, subsets: { saltar: [2,4] } });
 
@@ -64,6 +64,11 @@ function PlayState() {
     if (!player.walking_baby && player.y < 2400) {
       player.walking_baby = true;
     }
+    if (player.walking_baby && player.y < 2300) {
+      player.walking_baby = false;
+      player.walking_uniform = true;
+    }
+
 
     player.vx = 0;
     if (jaws.pressed("left"))        { player.vx = -4; player.flipped = 1; }
@@ -101,10 +106,10 @@ function PlayState() {
   this.draw = function() {
     jaws.clear();
 
-      viewport.apply( function() {
-        terrain.draw();
-        game_objects.draw();
-        player.draw();
-      });
+    viewport.apply( function() {
+      terrain.draw();
+      game_objects.draw();
+      player.draw();
+    });
   };
 };

@@ -6,7 +6,7 @@ jaws.onload = function() {
   jaws.assets.add("images/company2x150x300.png");
   jaws.assets.add("images/house2x250x200.png");
   jaws.assets.add("images/home2x250x200.png");
-  jaws.assets.add("images/tucito4x40x32.png");
+  jaws.assets.add("images/tucito6x40x32.png");
   jaws.assets.add("images/cake4x100x100.png");
   jaws.assets.add("images/tuzo2x40x52.png");
   jaws.assets.add("images/boy2x34x48.png");

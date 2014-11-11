@@ -67,10 +67,11 @@ function Tucito(options) {
   jaws.Sprite.call(this, { x: options.x, y: options.y, anchor:"center_bottom" });
   this.type = options.type
   this.text = options.text;
-  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito4x40x32.png', frame_size: [40,32], frame_duration: 120 });
+  this.animation = new jaws.Animation({ sprite_sheet: 'images/tucito6x40x32.png', frame_size: [40,32], frame_duration: 120 });
   // Another animation
   this.truckle = this.animation.slice(0,2);
   this.walking = this.animation.slice(2,4);
+  this.walking_with_uniform = this.animation.slice(4,6);
 
   this.setImage(this.animation.frames[0]);
   this.action = function() {
@@ -91,10 +92,12 @@ function Tucito(options) {
       move(this);
       this.y = player.y - 15;
       if (player.walking_baby) { this.setImage(this.walking.next());}
+      else {
+      if (player.walking_uniform){ this.setImage(this.walking_with_uniform.next()); }
       else { this.setImage(this.truckle.next()); }
     }
+    }
   };
-
 }
 Tucito.prototype = jaws.Sprite.prototype;
 
